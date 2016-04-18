@@ -2,6 +2,6 @@
     <group>
         <node pkg="turtlesim" name="sim" type="turtlesim_node"/>
         <node pkg="joy" name="joy_node" type="joy_node"/>
-        <node pkg="turtlesim_controller" name="race_controls_node" type="race_controls_node"/>
+        <node pkg="turtlesim_controller" name="race_controls_node" type="race_controls_node" output="screen"/>
     </group>
 </launch>
