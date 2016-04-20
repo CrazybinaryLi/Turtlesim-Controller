@@ -16,8 +16,7 @@
 #define R_TRIGGER 9
 
 bool received_joy = false;
-float lin_vel = 2.0;
-float ang_vel = 2.0;
+Velocity vel;
 sensor_msgs::Joy input;
 
 /**
@@ -26,7 +25,7 @@ sensor_msgs::Joy input;
 void controller_cb(const sensor_msgs::Joy::ConstPtr& MSG) {
     received_joy = true;
     input = *MSG;
-    update_vel(lin_vel, ang_vel, MSG->buttons);
+    update_vel(vel, MSG->buttons);
 }
 
 /**
@@ -38,14 +37,14 @@ void controller_cb(const sensor_msgs::Joy::ConstPtr& MSG) {
  */
 void set_vel(geometry_msgs::Twist& turtle_vel) {
     if (input.buttons[R_TRIGGER] == 1) {
-        turtle_vel.linear.x = lin_vel;
+        turtle_vel.linear.x = vel.linear;
     } else if (input.buttons[L_TRIGGER] == 1) {
-        turtle_vel.linear.x = lin_vel * -1;
+        turtle_vel.linear.x = vel.linear * -1;
     } else {
         turtle_vel.linear.x = 0.0;
     }
     
-    turtle_vel.angular.z = ang_vel * input.axes[HOR_AXES];
+    turtle_vel.angular.z = vel.angular * input.axes[HOR_AXES];
 }
 
 int main(int argc, char** argv) {
@@ -55,6 +54,8 @@ int main(int argc, char** argv) {
     ros::Subscriber controller_sub = n.subscribe("/joy", 1, controller_cb);
     ros::Rate loop_rate(10);
     geometry_msgs::Twist turtle_vel;
+    vel.linear = 2.0;
+    vel.angular = 2.0;
 
     // Waiting for controller_cb
     while (!received_joy) {

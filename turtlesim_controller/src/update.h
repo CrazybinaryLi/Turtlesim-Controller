@@ -4,6 +4,8 @@
 #include "std_msgs/Int32.h"
 #include <vector>
 
-void update_vel(float&, float&, const std::vector<int>&);
+struct Velocity;
+
+void update_vel(Velocity&, const std::vector<int>&);
 
 #endif
