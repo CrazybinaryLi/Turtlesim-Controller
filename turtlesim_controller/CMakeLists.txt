@@ -131,6 +131,8 @@ include_directories(
 ## Declare a C++ executable
 add_executable(race_controls_node src/race_controls_node.cpp)
 target_link_libraries(race_controls_node ${catkin_LIBRARIES})
+add_executable(thumbstick_controls_node src/thumbstick_controls_node.cpp)
+target_link_libraries(thumbstick_controls_node ${catkin_LIBRARIES})
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
