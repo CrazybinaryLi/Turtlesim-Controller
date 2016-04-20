@@ -9,12 +9,9 @@
 #include "geometry_msgs/Twist.h"
 #include "turtlesim/Pose.h"
 #include "sensor_msgs/Joy.h"
+#include "update.cpp"
 
 #define HOR_AXES 0
-#define DPAD_UP 4
-#define DPAD_RIGHT 5
-#define DPAD_DOWN 6
-#define DPAD_LEFT 7
 #define L_TRIGGER 8
 #define R_TRIGGER 9
 
@@ -24,33 +21,12 @@ float ang_vel = 2.0;
 sensor_msgs::Joy input;
 
 /**
- * Changes the linear and angular velocity of the turtle
- * Up on the D-Pad increases linear velocity, down decreases linear velocity
- * Right on the D-Pad increases angular velocity, left decreases angular velocity
- */
-void update_vel() {
-    if (input.buttons[DPAD_UP] == 1) {
-        lin_vel *= 2;    
-        ROS_INFO("Lin vel: %.4f, Ang vel: %.4f", lin_vel, ang_vel);
-    } else if (input.buttons[DPAD_DOWN] == 1) {
-        lin_vel /= 2;
-        ROS_INFO("Lin vel: %.4f, Ang vel: %.4f", lin_vel, ang_vel);
-    } else if (input.buttons[DPAD_RIGHT] == 1) {
-        ang_vel *= 2;
-        ROS_INFO("Lin vel: %.4f, Ang vel: %.4f", lin_vel, ang_vel);
-    } else if (input.buttons[DPAD_LEFT] == 1) {
-        ang_vel /= 2;
-        ROS_INFO("Lin vel: %.4f, Ang vel: %.4f", lin_vel, ang_vel);
-    }
-}
-
-/**
  * Callback for the input from the controller
  */
-void controller_cb(const sensor_msgs::Joy::ConstPtr& msg) {
+void controller_cb(const sensor_msgs::Joy::ConstPtr& MSG) {
     received_joy = true;
-    input = *msg;
-    update_vel();
+    input = *MSG;
+    update_vel(lin_vel, ang_vel, MSG->buttons);
 }
 
 /**
