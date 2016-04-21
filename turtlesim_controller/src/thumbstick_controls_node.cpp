@@ -7,8 +7,8 @@
 #define VERT_AXES 1
 
 geometry_msgs::Twist turtle_vel;
-bool received_joy = false;
 Velocity vel;
+bool received_joy = false;
 
 /** 
  * Sets the linear and angular velocity based on the input
