@@ -3,7 +3,7 @@
 #define DPAD_UP 4
 #define DPAD_RIGHT 5
 #define DPAD_DOWN 6
-#define DPAD_LEFT 8
+#define DPAD_LEFT 7
 
 /**
  * Struct for the turtle's base velocities
